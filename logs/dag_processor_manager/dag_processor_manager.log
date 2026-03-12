@@ -141,3 +141,23 @@ File Path                                 PID    Runtime      # DAGs    # Errors
 /opt/airflow/dags/build_cases.py                                   1           0  0.25s           2026-03-12T03:02:38
 /opt/airflow/dags/build_event_log.py                               1           0  0.22s           2026-03-12T03:02:38
 ================================================================================
+[2026-03-12T03:03:14.686+0000] {manager.py:878} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                 PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/build_cases.py                                   1           0  0.23s           2026-03-12T03:03:09
+/opt/airflow/dags/build_process_model.py                           1           0  0.22s           2026-03-12T03:03:03
+/opt/airflow/dags/build_event_log.py                               1           0  0.22s           2026-03-12T03:03:09
+================================================================================
+[2026-03-12T03:03:44.005+0000] {manager.py:878} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                 PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/build_cases.py                                   1           0  0.23s           2026-03-12T03:03:39
+/opt/airflow/dags/build_event_log.py                               1           0  0.22s           2026-03-12T03:03:39
+/opt/airflow/dags/build_process_model.py                           1           0  0.21s           2026-03-12T03:03:34
+================================================================================
