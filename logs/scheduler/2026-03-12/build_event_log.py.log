@@ -114,3 +114,38 @@
 [2026-03-12T03:03:39.432+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:03:39.431+0000] {dag.py:3089} INFO - Sync 1 DAGs
 [2026-03-12T03:03:39.462+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:03:39.462+0000] {dag.py:3947} INFO - Setting next_dagrun for build_event_log to 2026-03-12 02:50:00+00:00, run_after=2026-03-12 03:00:00+00:00
 [2026-03-12T03:03:39.492+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/build_event_log.py took 0.169 seconds
+[2026-03-12T03:04:09.674+0000] {processor.py:161} INFO - Started process (PID=362) to work on /opt/airflow/dags/build_event_log.py
+[2026-03-12T03:04:09.676+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/build_event_log.py for tasks to queue
+[2026-03-12T03:04:09.680+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:04:09.679+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/build_event_log.py
+[2026-03-12T03:04:09.732+0000] {processor.py:840} INFO - DAG(s) 'build_event_log' retrieved from /opt/airflow/dags/build_event_log.py
+[2026-03-12T03:04:09.790+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:04:09.790+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-03-12T03:04:09.827+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:04:09.827+0000] {dag.py:3947} INFO - Setting next_dagrun for build_event_log to 2026-03-12 02:50:00+00:00, run_after=2026-03-12 03:00:00+00:00
+[2026-03-12T03:04:09.864+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/build_event_log.py took 0.202 seconds
+[2026-03-12T03:04:40.049+0000] {processor.py:161} INFO - Started process (PID=377) to work on /opt/airflow/dags/build_event_log.py
+[2026-03-12T03:04:40.050+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/build_event_log.py for tasks to queue
+[2026-03-12T03:04:40.053+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:04:40.053+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/build_event_log.py
+[2026-03-12T03:04:40.092+0000] {processor.py:840} INFO - DAG(s) 'build_event_log' retrieved from /opt/airflow/dags/build_event_log.py
+[2026-03-12T03:04:40.156+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:04:40.156+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-03-12T03:04:40.199+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:04:40.198+0000] {dag.py:3947} INFO - Setting next_dagrun for build_event_log to 2026-03-12 02:50:00+00:00, run_after=2026-03-12 03:00:00+00:00
+[2026-03-12T03:04:40.236+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/build_event_log.py took 0.196 seconds
+[2026-03-12T03:05:10.491+0000] {processor.py:161} INFO - Started process (PID=392) to work on /opt/airflow/dags/build_event_log.py
+[2026-03-12T03:05:10.493+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/build_event_log.py for tasks to queue
+[2026-03-12T03:05:10.496+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:05:10.496+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/build_event_log.py
+[2026-03-12T03:05:10.548+0000] {processor.py:840} INFO - DAG(s) 'build_event_log' retrieved from /opt/airflow/dags/build_event_log.py
+[2026-03-12T03:05:10.595+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:05:10.595+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-03-12T03:05:10.633+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:05:10.632+0000] {dag.py:3947} INFO - Setting next_dagrun for build_event_log to 2026-03-12 02:50:00+00:00, run_after=2026-03-12 03:00:00+00:00
+[2026-03-12T03:05:10.664+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/build_event_log.py took 0.185 seconds
+[2026-03-12T03:05:40.858+0000] {processor.py:161} INFO - Started process (PID=407) to work on /opt/airflow/dags/build_event_log.py
+[2026-03-12T03:05:40.859+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/build_event_log.py for tasks to queue
+[2026-03-12T03:05:40.864+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:05:40.863+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/build_event_log.py
+[2026-03-12T03:05:40.915+0000] {processor.py:840} INFO - DAG(s) 'build_event_log' retrieved from /opt/airflow/dags/build_event_log.py
+[2026-03-12T03:05:40.995+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:05:40.994+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-03-12T03:05:41.051+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:05:41.051+0000] {dag.py:3947} INFO - Setting next_dagrun for build_event_log to 2026-03-12 02:50:00+00:00, run_after=2026-03-12 03:00:00+00:00
+[2026-03-12T03:05:41.093+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/build_event_log.py took 0.251 seconds
+[2026-03-12T03:06:11.345+0000] {processor.py:161} INFO - Started process (PID=422) to work on /opt/airflow/dags/build_event_log.py
+[2026-03-12T03:06:11.347+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/build_event_log.py for tasks to queue
+[2026-03-12T03:06:11.351+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:06:11.350+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/build_event_log.py
+[2026-03-12T03:06:11.391+0000] {processor.py:840} INFO - DAG(s) 'build_event_log' retrieved from /opt/airflow/dags/build_event_log.py
+[2026-03-12T03:06:11.441+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:06:11.440+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-03-12T03:06:11.477+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:06:11.477+0000] {dag.py:3947} INFO - Setting next_dagrun for build_event_log to 2026-03-12 02:50:00+00:00, run_after=2026-03-12 03:00:00+00:00
+[2026-03-12T03:06:11.509+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/build_event_log.py took 0.173 seconds

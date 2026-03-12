@@ -161,3 +161,55 @@ File Path                                 PID    Runtime      # DAGs    # Errors
 /opt/airflow/dags/build_event_log.py                               1           0  0.22s           2026-03-12T03:03:39
 /opt/airflow/dags/build_process_model.py                           1           0  0.21s           2026-03-12T03:03:34
 ================================================================================
+[2026-03-12T03:04:13.461+0000] {manager.py:878} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                 PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/build_event_log.py                               1           0  0.25s           2026-03-12T03:04:09
+/opt/airflow/dags/build_cases.py                                   1           0  0.24s           2026-03-12T03:04:09
+/opt/airflow/dags/build_process_model.py                           1           0  0.24s           2026-03-12T03:04:04
+================================================================================
+[2026-03-12T03:04:42.856+0000] {manager.py:878} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                 PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/build_cases.py                                   1           0  0.24s           2026-03-12T03:04:40
+/opt/airflow/dags/build_event_log.py                               1           0  0.24s           2026-03-12T03:04:40
+/opt/airflow/dags/build_process_model.py                           1           0  0.22s           2026-03-12T03:04:35
+================================================================================
+[2026-03-12T03:05:11.470+0000] {manager.py:878} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                 PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/build_cases.py                                   1           0  0.25s           2026-03-12T03:05:10
+/opt/airflow/dags/build_event_log.py                               1           0  0.23s           2026-03-12T03:05:10
+/opt/airflow/dags/build_process_model.py                           1           0  0.22s           2026-03-12T03:05:05
+================================================================================
+[2026-03-12T03:05:40.828+0000] {manager.py:878} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                   PID  Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/build_cases.py            404  0.03s             1           0  0.25s           2026-03-12T03:05:10
+/opt/airflow/dags/build_event_log.py        407  0.01s             1           0  0.23s           2026-03-12T03:05:10
+/opt/airflow/dags/build_process_model.py                           1           0  0.22s           2026-03-12T03:05:36
+================================================================================
+[2026-03-12T03:06:01.414+0000] {manager.py:737} INFO - Searching for files in /opt/airflow/dags
+[2026-03-12T03:06:01.491+0000] {manager.py:740} INFO - There are 3 files in /opt/airflow/dags
+[2026-03-12T03:06:09.446+0000] {manager.py:878} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                 PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+----------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/opt/airflow/dags/build_cases.py                                   1           0  0.30s           2026-03-12T03:05:41
+/opt/airflow/dags/build_event_log.py                               1           0  0.29s           2026-03-12T03:05:41
+/opt/airflow/dags/build_process_model.py                           1           0  -0.38s          2026-03-12T03:06:06
+================================================================================
