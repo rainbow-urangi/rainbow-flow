@@ -30,3 +30,10 @@
 [2026-03-12T03:02:32.638+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:02:32.638+0000] {dag.py:3089} INFO - Sync 1 DAGs
 [2026-03-12T03:02:32.670+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:02:32.670+0000] {dag.py:3947} INFO - Setting next_dagrun for build_process_model to 2026-03-10 17:15:00+00:00, run_after=2026-03-11 17:15:00+00:00
 [2026-03-12T03:02:32.699+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/build_process_model.py took 0.179 seconds
+[2026-03-12T03:03:02.822+0000] {processor.py:161} INFO - Started process (PID=324) to work on /opt/airflow/dags/build_process_model.py
+[2026-03-12T03:03:02.823+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/build_process_model.py for tasks to queue
+[2026-03-12T03:03:02.826+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:03:02.826+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/build_process_model.py
+[2026-03-12T03:03:02.874+0000] {processor.py:840} INFO - DAG(s) 'build_process_model' retrieved from /opt/airflow/dags/build_process_model.py
+[2026-03-12T03:03:02.917+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:03:02.917+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-03-12T03:03:02.950+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:03:02.950+0000] {dag.py:3947} INFO - Setting next_dagrun for build_process_model to 2026-03-10 17:15:00+00:00, run_after=2026-03-11 17:15:00+00:00
+[2026-03-12T03:03:02.985+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/build_process_model.py took 0.171 seconds

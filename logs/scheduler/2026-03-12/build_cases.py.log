@@ -100,3 +100,10 @@
 [2026-03-12T03:02:38.756+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:02:38.756+0000] {dag.py:3089} INFO - Sync 1 DAGs
 [2026-03-12T03:02:38.798+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:02:38.798+0000] {dag.py:3947} INFO - Setting next_dagrun for build_cases to 2026-03-12 02:00:00+00:00, run_after=2026-03-12 03:00:00+00:00
 [2026-03-12T03:02:38.834+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/build_cases.py took 0.186 seconds
+[2026-03-12T03:03:08.968+0000] {processor.py:161} INFO - Started process (PID=329) to work on /opt/airflow/dags/build_cases.py
+[2026-03-12T03:03:08.970+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/build_cases.py for tasks to queue
+[2026-03-12T03:03:08.973+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:03:08.972+0000] {dagbag.py:545} INFO - Filling up the DagBag from /opt/airflow/dags/build_cases.py
+[2026-03-12T03:03:09.019+0000] {processor.py:840} INFO - DAG(s) 'build_cases' retrieved from /opt/airflow/dags/build_cases.py
+[2026-03-12T03:03:09.068+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:03:09.068+0000] {dag.py:3089} INFO - Sync 1 DAGs
+[2026-03-12T03:03:09.106+0000] {logging_mixin.py:188} INFO - [2026-03-12T03:03:09.106+0000] {dag.py:3947} INFO - Setting next_dagrun for build_cases to 2026-03-12 02:00:00+00:00, run_after=2026-03-12 03:00:00+00:00
+[2026-03-12T03:03:09.137+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/build_cases.py took 0.180 seconds
