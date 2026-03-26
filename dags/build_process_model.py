@@ -12,7 +12,8 @@ from airflow.providers.mysql.hooks.mysql import MySqlHook
 from activity_rules import ACTIVITY_RULE_VERSION
 
 CONN_ID = "mariadb_didimdol"
-LOOKBACK_HOURS = 48
+#LOOKBACK_HOURS = 48
+LOOKBACK_HOURS = 24 * 365
 TOP_K_EDGES = 3000
 
 default_args = {"retries": 2, "retry_delay": timedelta(minutes=3)}
@@ -24,7 +25,7 @@ def run_build_process_model(**_context):
     hook = MySqlHook(mysql_conn_id=CONN_ID)
 
     with hook.get_conn() as conn:
-        cur = conn.cursor(dictionary=True)
+        cur = conn.cursor()
         cur.execute(
             f"""
             SELECT tenant_id, case_id, ts, activity
@@ -35,7 +36,9 @@ def run_build_process_model(**_context):
             """,
             (ACTIVITY_RULE_VERSION,),
         )
-        rows = cur.fetchall()
+        cols = [d[0] for d in cur.description]
+        fetched = cur.fetchall()
+        rows = [dict(zip(cols, r)) for r in fetched]
 
     seqs = defaultdict(lambda: defaultdict(list))
     for r in rows:

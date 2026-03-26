@@ -53,13 +53,13 @@ def run_build_event_log(**_context):
 
     while True:
         with hook.get_conn() as conn:
-            cur = conn.cursor(dictionary=True)
+            cur = conn.cursor()
             cur.execute(
                 f"""
                 SELECT
                   e.id AS source_event_pk,
                   e.task_id,
-                  e.session_id,
+                  t.session_id AS session_id,
                   e.event_time AS ts,
                   e.event_type,
                   e.interaction_type,
@@ -84,7 +84,12 @@ def run_build_event_log(**_context):
                 """,
                 (last_pk,),
             )
-            rows = cur.fetchall()
+
+            # ✅ tuple rows -> dict rows
+            cols = [d[0] for d in cur.description]
+            fetched = cur.fetchall()
+            rows = [dict(zip(cols, r)) for r in fetched]
+
             if not rows:
                 break
 
@@ -96,6 +101,9 @@ def run_build_event_log(**_context):
                     "element_tag": r.get("element_tag"),
                     "data_testid": r.get("data_testid"),
                 }
+
+                if r.get("session_id") is None:
+                   continue
 
                 insert_vals.append((
                     r["source_event_pk"],
