@@ -9,6 +9,8 @@ from airflow.providers.mysql.hooks.mysql import MySqlHook
 from activity_rules import ACTIVITY_RULE_VERSION
 
 CONN_ID = "mariadb_didimdol"
+SRC_DB = "ingest_backend_db"
+DST_DB = "flows_ml_db"
 #LOOKBACK_HOURS = 48
 LOOKBACK_HOURS = 24 * 365  # 1년
 
@@ -20,7 +22,7 @@ def run_build_cases(**_context):
         cur = conn.cursor()
         cur.execute(
             f"""
-            INSERT INTO cases
+            INSERT INTO {DST_DB}.cases
               (case_id, tenant_id, user_id, session_id, task_id,
                start_time, end_time, duration_ms,
                event_count, unique_activities, unique_pages, api_error_count,
@@ -39,9 +41,9 @@ def run_build_cases(**_context):
               COUNT(DISTINCT el.page_url) AS unique_pages,
               SUM(CASE WHEN el.api_status_code >= 400 THEN 1 ELSE 0 END) AS api_error_count,
               %s AS activity_rule_version
-            FROM tasks t
-            JOIN sessions s ON s.id = t.session_id
-            LEFT JOIN event_log el ON el.task_id = t.id
+            FROM {SRC_DB}.tasks t
+            JOIN {SRC_DB}.sessions s ON s.id = t.session_id
+            LEFT JOIN {DST_DB}.event_log el ON el.task_id = t.id
             WHERE t.start_time >= (UTC_TIMESTAMP(6) - INTERVAL {LOOKBACK_HOURS} HOUR)
             GROUP BY t.id, s.tenant_id, s.user_id, t.session_id, t.start_time, t.end_time, t.duration_ms
             ON DUPLICATE KEY UPDATE

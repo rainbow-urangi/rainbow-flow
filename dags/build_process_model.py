@@ -12,6 +12,8 @@ from airflow.providers.mysql.hooks.mysql import MySqlHook
 from activity_rules import ACTIVITY_RULE_VERSION
 
 CONN_ID = "mariadb_didimdol"
+DST_DB = "flows_ml_db"
+
 #LOOKBACK_HOURS = 48
 LOOKBACK_HOURS = 24 * 365
 TOP_K_EDGES = 3000
@@ -29,7 +31,7 @@ def run_build_process_model(**_context):
         cur.execute(
             f"""
             SELECT tenant_id, case_id, ts, activity
-            FROM event_log
+            FROM {DST_DB}.event_log
             WHERE ts >= (UTC_TIMESTAMP(6) - INTERVAL {LOOKBACK_HOURS} HOUR)
               AND activity_rule_version = %s
             ORDER BY tenant_id, case_id, ts ASC
@@ -64,8 +66,8 @@ def run_build_process_model(**_context):
 
             params = {"lookback_hours": LOOKBACK_HOURS, "top_k_edges": TOP_K_EDGES}
             cur.execute(
-                """
-                INSERT INTO process_models(tenant_id, model_name, method, params_json, activity_rule_version)
+                f"""
+                INSERT INTO {DST_DB}.process_models(tenant_id, model_name, method, params_json, activity_rule_version)
                 VALUES (%s, %s, %s, %s, %s)
                 """,
                 (tenant, "MVP Transition Graph", "freq_transition", json.dumps(params), ACTIVITY_RULE_VERSION),
@@ -78,7 +80,7 @@ def run_build_process_model(**_context):
                 node_rows.append((model_id, md5_16(act), act, int(freq)))
             if node_rows:
                 cur.executemany(
-                    "INSERT INTO process_nodes(model_id, activity_hash, activity, freq) VALUES (%s,%s,%s,%s)",
+                    f"INSERT INTO {DST_DB}.process_nodes(model_id, activity_hash, activity, freq) VALUES (%s,%s,%s,%s)",
                     node_rows
                 )
 
@@ -94,8 +96,8 @@ def run_build_process_model(**_context):
 
             if edge_rows:
                 cur.executemany(
-                    """
-                    INSERT INTO process_edges
+                    f"""
+                    INSERT INTO {DST_DB}.process_edges
                       (model_id, from_hash, to_hash, from_activity, to_activity, freq, prob)
                     VALUES (%s,%s,%s,%s,%s,%s,%s)
                     """,
