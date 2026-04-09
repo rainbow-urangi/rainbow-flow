@@ -10,6 +10,8 @@ from airflow.providers.mysql.hooks.mysql import MySqlHook
 from activity_rules import build_activity, ACTIVITY_RULE_VERSION
 
 CONN_ID = "flows_ml_db"
+SRC_DB = "ingest_backend_db"
+DST_DB = "flows_ml_db"
 PIPELINE = "build_event_log"
 TENANT = "__ALL__"
 BATCH_SIZE = 5000
@@ -20,14 +22,16 @@ def _get_state(hook: MySqlHook) -> int:
     with hook.get_conn() as conn:
         cur = conn.cursor()
         cur.execute(
-            "SELECT last_event_pk FROM etl_state WHERE pipeline_name=%s AND tenant_id=%s",
+            # "SELECT last_event_pk FROM etl_state WHERE pipeline_name=%s AND tenant_id=%s",
+            f"SELECT last_event_pk FROM {DST_DB}.etl_state WHERE pipeline_name=%s AND tenant_id=%s",
             (PIPELINE, TENANT),
         )
         row = cur.fetchone()
         if row:
             return int(row[0])
         cur.execute(
-            "INSERT INTO etl_state(pipeline_name, tenant_id, last_event_pk) VALUES (%s,%s,0)",
+            # "INSERT INTO etl_state(pipeline_name, tenant_id, last_event_pk) VALUES (%s,%s,0)",
+            f"INSERT INTO {DST_DB}.etl_state(pipeline_name, tenant_id, last_event_pk) VALUES (%s,%s,0)",
             (PIPELINE, TENANT),
         )
         conn.commit()
@@ -37,7 +41,8 @@ def _set_state(hook: MySqlHook, last_pk: int) -> None:
     with hook.get_conn() as conn:
         cur = conn.cursor()
         cur.execute(
-            """INSERT INTO etl_state(pipeline_name, tenant_id, last_event_pk)
+            # """INSERT INTO etl_state(pipeline_name, tenant_id, last_event_pk)
+            f"""INSERT INTO {DST_DB}.etl_state(pipeline_name, tenant_id, last_event_pk)
                VALUES (%s,%s,%s)
                ON DUPLICATE KEY UPDATE last_event_pk=VALUES(last_event_pk)""",
             (PIPELINE, TENANT, last_pk),
@@ -75,9 +80,9 @@ def run_build_event_log(**_context):
                   e.element_text,
                   s.tenant_id,
                   s.user_id
-                FROM events e
-                JOIN tasks t ON t.id = e.task_id
-                JOIN sessions s ON s.id = t.session_id
+                FROM {SRC_DB}.events e
+                JOIN {SRC_DB}.tasks t ON t.id = e.task_id
+                JOIN {SRC_DB}.sessions s ON s.id = t.session_id
                 WHERE e.id > %s
                 ORDER BY e.id ASC
                 LIMIT {BATCH_SIZE}
@@ -135,8 +140,8 @@ def run_build_event_log(**_context):
 
             cur2 = conn.cursor()
             cur2.executemany(
-                """
-                INSERT INTO event_log
+                f"""
+                INSERT INTO {DST_DB}.event_log
                   (source_event_pk, case_id, tenant_id, user_id, session_id, task_id, ts,
                    activity, activity_l1, activity_l2, activity_rule_version,
                    event_type, interaction_type, page_url, page_title, api_path, api_method, api_status_code,
