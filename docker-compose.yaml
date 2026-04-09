@@ -10,7 +10,7 @@ services:
     restart: always
 
   airflow-webserver:
-    image: apache/airflow:2.9.3
+    build: .
     depends_on: [postgres]
     env_file: .env
     environment:
@@ -27,13 +27,15 @@ services:
     restart: always
 
   airflow-scheduler:
-    image: apache/airflow:2.9.3
+    build: .
     depends_on: [postgres]
     env_file: .env
     environment:
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"  
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs

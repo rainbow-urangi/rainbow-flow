@@ -9,7 +9,7 @@ from airflow.providers.mysql.hooks.mysql import MySqlHook
 
 from activity_rules import build_activity, ACTIVITY_RULE_VERSION
 
-CONN_ID = "mariadb_didimdol"
+CONN_ID = "flows_ml_db"
 PIPELINE = "build_event_log"
 TENANT = "__ALL__"
 BATCH_SIZE = 5000

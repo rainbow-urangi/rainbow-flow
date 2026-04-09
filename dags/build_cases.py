@@ -8,7 +8,7 @@ from airflow.providers.mysql.hooks.mysql import MySqlHook
 
 from activity_rules import ACTIVITY_RULE_VERSION
 
-CONN_ID = "mariadb_didimdol"
+CONN_ID = "flows_ml_db"
 #LOOKBACK_HOURS = 48
 LOOKBACK_HOURS = 24 * 365  # 1년
 
