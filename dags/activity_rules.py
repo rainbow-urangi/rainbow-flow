@@ -2,7 +2,7 @@ from __future__ import annotations
 from urllib.parse import urlparse
 import re
 
-ACTIVITY_RULE_VERSION = "v0.1"
+ACTIVITY_RULE_VERSION = "v0.2"
 
 def _safe_trim(s: str | None, max_len: int) -> str | None:
     if not s:
@@ -60,7 +60,9 @@ def build_activity(row: dict) -> tuple[str, str | None, str | None, str]:
 
     if api_path and api_method:
         bucket = _bucket_status(status_code)
-        act = f"API:{api_method} {api_path}" + (f" {bucket}" if bucket else "")
+        act = f"API:{api_method}_{api_path}"
+        if bucket:
+            act += f"_{bucket}"
         return _mask_ids(act), "API", api_path.split("/")[1] if api_path.startswith("/") else None, ACTIVITY_RULE_VERSION
 
     if itype == "submit":
