@@ -1,57 +1,58 @@
 from __future__ import annotations
 
 from datetime import datetime, timedelta
-import numpy as np
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.providers.mysql.hooks.mysql import MySqlHook
 
-from sklearn.feature_extraction.text import TfidfVectorizer
-import hdbscan
 
-CONN_ID = "flows_ml_db"   # build_event_log과 통일 (현재 파일 기준)
-DST_DB = "flows_ml_db"    # case_sequences, case_clusters가 있는 DB
-MODEL_VERSION = "baseline_hdbscan_v0.2"
+CONN_ID = "flows_ml_db"
+DST_DB = "flows_ml_db"
 
-MIN_LEN = 5
-MAX_LEN = 200
-MIN_CLUSTER_SIZE = 40
-MIN_SAMPLES = 10
+MODEL_VERSION = "baseline_hdbscan_v0.2_clean_20260423"
+RULE_VERSION = "v0.2"
+
+# clean 기준 필터(추천)
+MIN_LEN_CLEAN = 5
+
+# HDBSCAN 파라미터(초기값)
+MIN_CLUSTER_SIZE = 20
+MIN_SAMPLES = 5
 
 default_args = {"retries": 1, "retry_delay": timedelta(minutes=3)}
 
-def _trim_seq_text(s: str) -> str:
-    toks = s.split()
-    if len(toks) <= MAX_LEN:
-        return s
-    head = toks[:120]
-    tail = toks[-80:]
-    return " ".join(head + ["<...>"] + tail)
 
 def run_cluster_cases(**_context):
+    # ✅ import는 함수 내부로 두면, 혹시 환경 흔들릴 때 Broken DAG 방지에도 도움
+    from sklearn.feature_extraction.text import TfidfVectorizer
+    import hdbscan
+    import numpy as np
+
     hook = MySqlHook(mysql_conn_id=CONN_ID)
 
-    # 1) case_sequences 읽기 (tuple 커서 + dict 변환)
+    # 1) clean 시퀀스 읽기
     with hook.get_conn() as conn:
         cur = conn.cursor()
         cur.execute(
             f"""
-            SELECT case_id, seq_len, seq_text
+            SELECT case_id, seq_len_clean, seq_text_clean
             FROM {DST_DB}.case_sequences
             WHERE activity_rule_version = %s
-              AND seq_len >= %s
+              AND seq_len_clean >= %s
+              AND seq_text_clean IS NOT NULL
+              AND seq_text_clean <> ''
             """,
-            ("v0.2", MIN_LEN),
+            (RULE_VERSION, MIN_LEN_CLEAN),
         )
         cols = [d[0] for d in cur.description]
         rows = [dict(zip(cols, r)) for r in cur.fetchall()]
 
     if not rows:
-        print("[cluster_cases] no rows. check case_sequences / rule_version / seq_len filter.")
+        print("[cluster_cases_hdbscan] no rows. check seq_text_clean/seq_len_clean")
         return
 
     case_ids = [int(r["case_id"]) for r in rows]
-    texts = [_trim_seq_text(str(r["seq_text"])) for r in rows]
+    texts = [str(r["seq_text_clean"]) for r in rows]
 
     # 2) TF-IDF
     vec = TfidfVectorizer(
@@ -66,7 +67,7 @@ def run_cluster_cases(**_context):
     clusterer = hdbscan.HDBSCAN(
         min_cluster_size=MIN_CLUSTER_SIZE,
         min_samples=MIN_SAMPLES,
-        metric="euclidean",
+        metric="cosine",
         cluster_selection_method="eom",
     )
     labels = clusterer.fit_predict(X)
@@ -96,12 +97,13 @@ def run_cluster_cases(**_context):
     n_total = len(case_ids)
     n_noise = int(np.sum(labels == -1))
     n_clusters = len(set(labels)) - (1 if -1 in set(labels) else 0)
-    print(f"[cluster_cases] model={MODEL_VERSION} total={n_total} clusters={n_clusters} noise={n_noise}")
+    print(f"[cluster_cases_hdbscan] model={MODEL_VERSION} total={n_total} clusters={n_clusters} noise={n_noise}")
+
 
 with DAG(
     dag_id="cluster_cases_hdbscan",
     start_date=datetime(2025, 1, 1),
-    schedule=None,  # 먼저는 수동 실행 권장
+    schedule=None,  # 수동 실행 권장
     catchup=False,
     default_args=default_args,
     tags=["didimdol", "ml"],

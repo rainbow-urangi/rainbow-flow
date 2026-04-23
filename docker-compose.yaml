@@ -10,7 +10,10 @@ services:
     restart: always
 
   airflow-webserver:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: rainbow-airflow-ml:2.9.3
     depends_on: [postgres]
     env_file: .env
     environment:
@@ -27,7 +30,10 @@ services:
     restart: always
 
   airflow-scheduler:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: rainbow-airflow-ml:2.9.3
     depends_on: [postgres]
     env_file: .env
     environment:
@@ -35,7 +41,7 @@ services:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
     extra_hosts:
-      - "host.docker.internal:host-gateway"  
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
